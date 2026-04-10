@@ -25,15 +25,15 @@ I am a university student passionate about security and finance. I have these re
 
 ### Algorithms
 - [16x16-Sudoku-Solver-Optimized-Backtracking-with-Heuristics-](https://github.com/Pace-Runner/16x16-Sudoku-Solver-Optimized-Backtracking-with-Heuristics-) - 16x16 Sudoku solver using optimized backtracking heuristics.
+- [-Snake-AI](https://github.com/Pace-Runner/-Snake-AI) - Java Snake AI agent project.
 - [Graph-Coloring-in-Java](https://github.com/Pace-Runner/Graph-Coloring-in-Java) - Greedy graph coloring implementation in Java.
 - [Maze-Solver-BFS-Approach-](https://github.com/Pace-Runner/Maze-Solver-BFS-Approach-) - Shortest-path maze solving with breadth-first search.
 
 ### Finance Software
+- [IV-Surface-and-Recovery-Theorem-Plot](https://github.com/Pace-Runner/IV-Surface-and-Recovery-Theorem-Plot) - 3D implementation and visualization of Ross recovery theorem ideas.
 - [SP500-valuation-analysis](https://github.com/Pace-Runner/SP500-valuation-analysis) - Shows undervalued and overvalued sectors and stocks in the S&P 500.
 - [NAS100-Trading-Bot](https://github.com/Pace-Runner/NAS100-Trading-Bot) - NAS100 strategy bot with moving-average signal logic.
 - [AnalyticClarity.com](https://github.com/Pace-Runner/AnalyticClarity.com) - Advanced strategy testing platform.
 
 ### Software
-- [-Snake-AI](https://github.com/Pace-Runner/-Snake-AI) - Java Snake AI agent project.
-- [IV-Surface-and-Recovery-Theorem-Plot](https://github.com/Pace-Runner/IV-Surface-and-Recovery-Theorem-Plot) - 3D implementation and visualization of Ross recovery theorem ideas.
 - [Surrogate-Shopper](https://github.com/Pace-Runner/Surrogate-Shopper) - Android volunteer support app.
