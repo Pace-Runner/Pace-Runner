@@ -4,12 +4,9 @@ import sys
 import urllib.error
 import urllib.parse
 import urllib.request
-from collections import defaultdict
 from datetime import datetime, timezone
 
 README_PATH = "README.md"
-STATE_PATH = ".github/repo-state.json"
-HISTORY_PATH = ".github/repo-history.json"
 START_MARKER = "<!-- AUTO-GENERATED-REPOS:START -->"
 END_MARKER = "<!-- AUTO-GENERATED-REPOS:END -->"
 
@@ -69,10 +66,6 @@ def fetch_repositories(username: str) -> list[dict]:
     return repos
 
 
-def normalize_language(language: str | None) -> str:
-    return language if language else "Other"
-
-
 def relative_days_since(iso_string: str | None) -> int:
     if not iso_string:
         return 9999
@@ -91,102 +84,72 @@ def status_badge(repo: dict) -> str:
     return "Maintained"
 
 
-def ensure_parent_dir(file_path: str) -> None:
-    parent = os.path.dirname(file_path)
-    if parent:
-        os.makedirs(parent, exist_ok=True)
+def classify_theme(repo: dict) -> str:
+    name = (repo.get("name") or "").lower()
+    description = (repo.get("description") or "").lower()
+    language = (repo.get("language") or "").lower()
+    haystack = f"{name} {description}"
 
+    cybersecurity_keywords = [
+        "security",
+        "cyber",
+        "iam",
+        "s3",
+        "cloudtrail",
+        "cloudwatch",
+        "scanner",
+        "threat",
+        "monitoring",
+        "vulnerability",
+    ]
+    algorithms_keywords = [
+        "algorithm",
+        "bfs",
+        "graph",
+        "sudoku",
+        "solver",
+        "backtracking",
+        "maze",
+        "heuristic",
+        "coloring",
+    ]
+    finance_keywords = [
+        "finance",
+        "trading",
+        "valuation",
+        "sp500",
+        "nas100",
+        "market",
+        "stock",
+        "quant",
+    ]
+    software_keywords = [
+        "app",
+        "api",
+        "portfolio",
+        "android",
+        "website",
+        "web",
+        "project",
+    ]
 
-def load_json_file(file_path: str, default_value):
-    if not os.path.exists(file_path):
-        return default_value
-    with open(file_path, "r", encoding="utf-8") as file_obj:
-        return json.load(file_obj)
+    if any(keyword in haystack for keyword in cybersecurity_keywords):
+        return "Cyber Security"
+    if any(keyword in haystack for keyword in algorithms_keywords):
+        return "Algorithms"
+    if any(keyword in haystack for keyword in finance_keywords):
+        return "Software Finance"
+    if any(keyword in haystack for keyword in software_keywords):
+        return "Software"
 
-
-def save_json_file(file_path: str, data) -> None:
-    ensure_parent_dir(file_path)
-    with open(file_path, "w", encoding="utf-8", newline="\n") as file_obj:
-        json.dump(data, file_obj, indent=2)
-        file_obj.write("\n")
-
-
-def build_repo_state(repos: list[dict]) -> dict[str, dict]:
-    state = {}
-    for repo in repos:
-        if repo.get("fork"):
-            continue
-        state[repo["name"]] = {
-            "url": repo.get("html_url"),
-            "created_at": repo.get("created_at"),
-            "pushed_at": repo.get("pushed_at"),
-            "archived": bool(repo.get("archived")),
-            "language": normalize_language(repo.get("language")),
-        }
-    return state
-
-
-def build_update_history(current_state: dict[str, dict]) -> list[dict]:
-    previous_state = load_json_file(STATE_PATH, {})
-    previous_history = load_json_file(HISTORY_PATH, [])
-    now_date = datetime.now(timezone.utc).strftime("%Y-%m-%d")
-
-    new_events: list[dict] = []
-
-    for repo_name, current in sorted(current_state.items(), key=lambda item: item[0].lower()):
-        old = previous_state.get(repo_name)
-        if old is None:
-            new_events.append(
-                {
-                    "date": now_date,
-                    "type": "added",
-                    "repo": repo_name,
-                    "url": current.get("url"),
-                }
-            )
-            continue
-
-        if current.get("pushed_at") and current.get("pushed_at") != old.get("pushed_at"):
-            new_events.append(
-                {
-                    "date": now_date,
-                    "type": "updated",
-                    "repo": repo_name,
-                    "url": current.get("url"),
-                }
-            )
-
-        if current.get("archived") != old.get("archived"):
-            new_events.append(
-                {
-                    "date": now_date,
-                    "type": "archived" if current.get("archived") else "unarchived",
-                    "repo": repo_name,
-                    "url": current.get("url"),
-                }
-            )
-
-    dedupe_keys = set()
-    merged_history: list[dict] = []
-
-    for event in (new_events + previous_history):
-        key = (event.get("date"), event.get("type"), event.get("repo"))
-        if key in dedupe_keys:
-            continue
-        dedupe_keys.add(key)
-        merged_history.append(event)
-
-    merged_history = merged_history[:200]
-
-    save_json_file(STATE_PATH, current_state)
-    save_json_file(HISTORY_PATH, merged_history)
-
-    return merged_history
+    if language in {"c++", "java", "python", "javascript"}:
+        return "Software"
+    return "Other"
 
 
 def format_repo_table(repos: list[dict]) -> str:
     lines = [
-        "| # | Repository | Description | Category | Last Push |",
+        "| # | Repository | Description | Status | Last Push |",
         "|---:|---|---|---|---|",
     ]
 
@@ -194,10 +157,10 @@ def format_repo_table(repos: list[dict]) -> str:
         description = (repo.get("description") or "No description yet.").replace("|", "\\|")
         name = repo["name"]
         html_url = repo["html_url"]
-        category = status_badge(repo)
+        status = status_badge(repo)
         pushed = (repo.get("pushed_at") or "").split("T")[0] or "-"
         lines.append(
-            f"| {index} | [{name}]({html_url}) | {description} | {category} | {pushed} |"
+            f"| {index} | [{name}]({html_url}) | {description} | {status} | {pushed} |"
         )
 
     if len(repos) == 0:
@@ -206,17 +169,34 @@ def format_repo_table(repos: list[dict]) -> str:
     return "\n".join(lines)
 
 
-def format_language_groups(repos: list[dict]) -> str:
-    groups: dict[str, list[dict]] = defaultdict(list)
-    for repo in repos:
-        groups[normalize_language(repo.get("language"))].append(repo)
+def format_theme_groups(repos: list[dict]) -> str:
+    groups: dict[str, list[dict]] = {
+        "Cyber Security": [],
+        "Algorithms": [],
+        "Software Finance": [],
+        "Software": [],
+        "Other": [],
+    }
 
-    sorted_groups = sorted(groups.items(), key=lambda item: (-len(item[1]), item[0].lower()))
+    for repo in repos:
+        groups[classify_theme(repo)].append(repo)
+
+    ordered_sections = [
+        "Cyber Security",
+        "Algorithms",
+        "Software Finance",
+        "Software",
+        "Other",
+    ]
 
     lines: list[str] = []
-    for language, items in sorted_groups:
-        lines.append(f"### {language} ({len(items)})")
-        for repo in sorted(items, key=lambda r: r["name"].lower()):
+    for section in ordered_sections:
+        items = sorted(groups[section], key=lambda r: r["name"].lower())
+        if not items:
+            continue
+
+        lines.append(f"### {section} ({len(items)})")
+        for repo in items:
             desc = repo.get("description") or "No description yet."
             lines.append(f"- [{repo['name']}]({repo['html_url']}) - {desc}")
         lines.append("")
@@ -237,28 +217,7 @@ def format_newest_additions(repos: list[dict], max_items: int = 10) -> str:
     return "\n".join(lines) if lines else "- No repositories found"
 
 
-def format_history_feed(history: list[dict], max_items: int = 20) -> str:
-    if not history:
-        return "- No tracked updates yet."
-
-    type_map = {
-        "added": "Added",
-        "updated": "Updated",
-        "archived": "Archived",
-        "unarchived": "Unarchived",
-    }
-
-    lines: list[str] = []
-    for event in history[:max_items]:
-        label = type_map.get(event.get("type"), "Updated")
-        date = event.get("date", "-")
-        repo = event.get("repo", "unknown-repo")
-        url = event.get("url") or "#"
-        lines.append(f"- {date}: {label} [{repo}]({url})")
-    return "\n".join(lines)
-
-
-def build_generated_block(username: str, repos: list[dict], history: list[dict]) -> str:
+def build_generated_block(username: str, repos: list[dict]) -> str:
     non_fork_repos = [r for r in repos if not r.get("fork")]
     total_repos = len(non_fork_repos)
     active_count = len([r for r in non_fork_repos if status_badge(r) == "Active"])
@@ -287,17 +246,13 @@ _Last generated: {generated_on}_
 
 {format_repo_table(ordered_repos)}
 
-### Categorized By Primary Language
+### Categorized By Project Theme
 
-{format_language_groups(ordered_repos)}
+{format_theme_groups(ordered_repos)}
 
 ### Newest Repositories Added
 
 {format_newest_additions(non_fork_repos)}
-
-### Update Feed (Tracked History)
-
-{format_history_feed(history)}
 
 {END_MARKER}"""
 
@@ -314,8 +269,6 @@ def replace_generated_block(content: str, replacement_block: str) -> str:
 def main() -> int:
     username = get_username()
     repos = fetch_repositories(username)
-    current_state = build_repo_state(repos)
-    history = build_update_history(current_state)
 
     if not os.path.exists(README_PATH):
         raise RuntimeError("README.md not found in current directory.")
@@ -323,7 +276,7 @@ def main() -> int:
     with open(README_PATH, "r", encoding="utf-8") as readme_file:
         content = readme_file.read()
 
-    generated_block = build_generated_block(username, repos, history)
+    generated_block = build_generated_block(username, repos)
     updated_content = replace_generated_block(content, generated_block)
 
     with open(README_PATH, "w", encoding="utf-8", newline="\n") as readme_file:
