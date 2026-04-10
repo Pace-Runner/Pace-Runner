@@ -1,21 +1,12 @@
 # Owen's Repository Hub
 
-<p align="left">
-	<img src="https://img.shields.io/badge/Curated-Projects-1c7ed6?style=for-the-badge" alt="curated projects" />
-	<img src="https://img.shields.io/badge/Manual-Showcase-0ca678?style=for-the-badge" alt="manual showcase" />
-</p>
-
-A curated showcase of projects I want to highlight.
+A showcase of projects I want to highlight.
 
 ## About Me
 
 Hi, I'm **Owen**.
 
-I build practical projects, keep improving my workflow, and use this page as my project showcase.
-
-- Focus Areas: `Web Development` | `Automation` | `Open Source`
-- Currently Learning: `Add what you're learning now`
-- Open To: `Collaboration / Freelance / Networking`
+I am a university student passionate about security and finance. I have these repos to showcase projects I care about and skills I have learnt along the way. With that sit back and enjoy!
 
 ## Connect With Me
 
