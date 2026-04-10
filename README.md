@@ -23,7 +23,6 @@ I build practical projects, keep improving my workflow, and use this page as my 
 |---|---|
 | GitHub | [Pace-Runner](https://github.com/Pace-Runner) |
 | LinkedIn | [owen-pace-388424313](https://www.linkedin.com/in/owen-pace-388424313) |
-| Email | [owenpace1409200415@gmail.com](mailto:owenpace1409200415@gmail.com) |
 
 ## Featured Repositories
 
@@ -44,7 +43,6 @@ I build practical projects, keep improving my workflow, and use this page as my 
 - [AnalyticClarity.com](https://github.com/Pace-Runner/AnalyticClarity.com) - Advanced strategy testing platform.
 
 ### Software
-- [Pace-Runner](https://github.com/Pace-Runner/Pace-Runner) - GitHub profile and showcase repository.
 - [-Snake-AI](https://github.com/Pace-Runner/-Snake-AI) - Java Snake AI agent project.
 - [IV-Surface-and-Recovery-Theorem-Plot](https://github.com/Pace-Runner/IV-Surface-and-Recovery-Theorem-Plot) - 3D implementation and visualization of Ross recovery theorem ideas.
 - [Surrogate-Shopper](https://github.com/Pace-Runner/Surrogate-Shopper) - Android volunteer support app.
