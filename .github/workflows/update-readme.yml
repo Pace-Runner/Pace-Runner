@@ -1,0 +1,39 @@
+name: Auto Update README
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 6 * * *"
+  push:
+    branches: ["main"]
+
+permissions:
+  contents: write
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Generate README sections
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_USERNAME: ${{ github.repository_owner }}
+        run: python scripts/generate_readme.py
+
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add README.md .github/repo-state.json .github/repo-history.json
+          git diff --cached --quiet || git commit -m "chore: auto-update repository dashboard"
+
+      - name: Push changes
+        run: git push
