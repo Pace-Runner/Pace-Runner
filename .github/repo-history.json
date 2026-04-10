@@ -1,6 +1,12 @@
 [
   {
     "date": "2026-04-10",
+    "type": "updated",
+    "repo": "Pace-Runner",
+    "url": "https://github.com/Pace-Runner/Pace-Runner"
+  },
+  {
+    "date": "2026-04-10",
     "type": "added",
     "repo": "-Snake-AI",
     "url": "https://github.com/Pace-Runner/-Snake-AI"
