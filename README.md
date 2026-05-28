@@ -4,7 +4,7 @@ A showcase of projects I want to highlight.
 
 <p align="center">
   <a href="https://github.com/joshsawyer">
-    <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&weight=600&size=20&pause=1000&color=FF6B6B&center=true&vCenter=true&width=500&lines=Maths+%26+Computer+Science+%40+Wits" alt="Typing SVG" />
+    <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&weight=600&size=20&pause=1000&color=FF6B6B&center=true&vCenter=true&width=500&lines=%26+Computer+Science+%40+Wits" alt="Typing SVG" />
   </a>
 </p>
 
