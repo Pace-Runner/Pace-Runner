@@ -3,14 +3,11 @@
 A showcase of projects I want to highlight.
 
 <p align="center">
-  <a href="https://github.com/joshsawyer">
+  <a href="https://github.com/Pace-Runner">
     <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&weight=600&size=20&pause=1000&color=FF6B6B&center=true&vCenter=true&width=500&lines=Computer+Science+%40+Wits" alt="Typing SVG" />
   </a>
 </p>
 
-<p align="center">
-  <img src="https://komarev.com/ghpvc/?username=joshsawyer&color=FF6B6B&style=flat-square&label=Profile+Views" />
-</p>
 
 ## About Me
 
