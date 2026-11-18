@@ -42,6 +42,9 @@ I am a university student passionate about security and finance. I have these re
 - [NAS100-Trading-Bot](https://github.com/Pace-Runner/NAS100-Trading-Bot) - NAS100 strategy bot with moving-average signal logic.
 - [AnalyticClarity.com](https://github.com/Pace-Runner/AnalyticClarity.com) - Advanced strategy testing platform.
 
+### Games
+- [Project Hollow](https://github.com/Pace-Runner/Horror-Escape-Room) - A escape room browser game
+
 ### Software
 - [Surrogate-Shopper](https://github.com/Pace-Runner/Surrogate-Shopper) - Android volunteer support app.
 - [Learnership-Application](https://github.com/Pace-Runner/Learnership-Websight) - A web-based portal for discovering and managing South African learnerships 
