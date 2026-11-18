@@ -47,5 +47,6 @@ I am a university student passionate about security and finance. I have these re
 - [Project Hollow](https://github.com/Pace-Runner/Horror-Escape-Room) - A escape room browser game
 
 ### Software
+- [NBA Analytics](https://github.com/Pace-Runner/NBA-Analytics-Optimisation-Engine/blob/main/README.md) - A sports analytics and prediction platform for the NBA
 - [Surrogate-Shopper](https://github.com/Pace-Runner/Surrogate-Shopper) - Android volunteer support app.
 - [Learnership-Application](https://github.com/Pace-Runner/Learnership-Websight) - A web-based portal for discovering and managing South African learnerships 
