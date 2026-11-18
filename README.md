@@ -31,6 +31,7 @@ I am a university student passionate about security and finance. I have these re
 - [AWS-Security-Monitoring](https://github.com/Pace-Runner/AWS-Security-Monitoring) - CloudTrail, CloudWatch, and SNS security monitoring setup.
 
 ### Algorithms
+- [AI Soccer Team](https://github.com/Pace-Runner/Soccer-Team-Ai) - 
 - [16x16-Sudoku-Solver-Optimized-Backtracking-with-Heuristics-](https://github.com/Pace-Runner/16x16-Sudoku-Solver-Optimized-Backtracking-with-Heuristics-) - 16x16 Sudoku solver using optimized backtracking heuristics.
 - [-Snake-AI](https://github.com/Pace-Runner/-Snake-AI) - Java Snake AI agent project.
 - [Graph-Coloring-in-Java](https://github.com/Pace-Runner/Graph-Coloring-in-Java) - Greedy graph coloring implementation in Java.
